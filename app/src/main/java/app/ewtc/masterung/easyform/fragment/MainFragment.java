@@ -163,9 +163,9 @@ public class MainFragment extends Fragment{
             );
             Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM nameTABLE", null);
             cursor.moveToFirst();
-            String[] nameStrings = new String[cursor.getCount()];
-            String[] genderStrings = new String[cursor.getCount()];
-            String[] provinceStrings = new String[cursor.getCount()];
+            final String[] nameStrings = new String[cursor.getCount()];
+            final String[] genderStrings = new String[cursor.getCount()];
+            final String[] provinceStrings = new String[cursor.getCount()];
 
             for (int i=0; i<cursor.getCount(); i+=1) {
 
@@ -182,6 +182,16 @@ public class MainFragment extends Fragment{
                     nameStrings
             );
             listView.setAdapter(stringArrayAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    MyAlertDialog myAlertDialog = new MyAlertDialog(getActivity());
+                    myAlertDialog.myDialog("You Choose", nameStrings[i] +
+                            "\n" + "Gender = " + genderStrings[i] +
+                            "\n" + "Province = " + provinceStrings[i]);
+                }
+            });
 
 
 
